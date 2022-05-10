@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
   // baseURL: "http://localhost:3001/api/",
-  baseURL: "https://facebook-api.onrender.com",
+  baseURL: "https://facebook-api.onrender.com/api/",
   withCredentials: true,
 });
 
