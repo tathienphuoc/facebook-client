@@ -1,10 +1,11 @@
-import { useEffect, useState, useContext, useLayoutEffect } from "react";
+import { Spin } from "antd";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../apis";
 import ContactMenu from "../components/ContactMenu";
 import Nav from "../components/Nav";
 import NewsFeed from "../components/NewsFeed";
 import SideBar from "../components/SideBar";
-import API from "../apis";
 import { UserContext } from "../UserContext";
 
 function App() {
@@ -12,9 +13,11 @@ function App() {
   const navigate = useNavigate();
   const { user, socket } = useContext(UserContext);
   const [friends, setFriends] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getPosts = async () => {
     setPosts((await API.getPosts()).data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -38,7 +41,9 @@ function App() {
         <Nav />
         <div className="bg-facebook-gray flex justify-center min-w-[650px]">
           <SideBar />
-          <NewsFeed data={posts} />
+          <Spin spinning={isLoading}>
+            <NewsFeed data={posts} />
+          </Spin>
           <ContactMenu friends={friends} />
         </div>
       </>
