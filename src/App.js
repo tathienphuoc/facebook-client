@@ -10,7 +10,10 @@ function App() {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
-  const [socket, setSocket] = useState(() => io("http://localhost:3001"));
+  // const [socket, setSocket] = useState(() => io("http://localhost:3001"));
+  const [socket, setSocket] = useState(() =>
+    io("https://facebook-api.onrender.com")
+  );
 
   const value = useMemo(
     () => ({ user, setUser, socket }),
